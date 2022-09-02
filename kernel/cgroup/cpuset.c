@@ -57,6 +57,7 @@
 #include <linux/backing-dev.h>
 #include <linux/sort.h>
 #include <linux/oom.h>
+#include <linux/binfmts.h>
 
 #include <linux/uaccess.h>
 #include <linux/atomic.h>
@@ -136,6 +137,13 @@ struct cpuset {
 	/* for custom sched domain */
 	int relax_domain_level;
 };
+
+#ifdef CONFIG_CPUSET_ASSIST
+struct cs_target {
+	const char *name;
+	char *cpus;
+};
+#endif
 
 static inline struct cpuset *css_cs(struct cgroup_subsys_state *css)
 {
@@ -1713,7 +1721,7 @@ static ssize_t cpuset_write_resmask(struct kernfs_open_file *of,
 	struct cpuset *cs = css_cs(of_css(of));
 	struct cpuset *trialcs;
 	int retval = -ENODEV;
-
+	
 	buf = strstrip(buf);
 
 	/*
@@ -1769,6 +1777,28 @@ out_unlock:
 	flush_workqueue(cpuset_migrate_mm_wq);
 	return retval ?: nbytes;
 }
+
+static ssize_t cpuset_write_resmask_assist(struct kernfs_open_file *of,
+					   struct cs_target tgt, size_t nbytes,
+					   loff_t off)
+{
+	pr_info("cpuset_assist: setting %s to %s\n", tgt.name, tgt.cpus);
+	return cpuset_write_resmask(of, tgt.cpus, nbytes, off);
+}
+
+#ifdef CONFIG_CPUSET_ASSIST
+	static struct cs_target cs_targets[] = {
+		{ "audio-app",		CONFIG_CPUSET_AUDIO_APP },
+		{ "background",		CONFIG_CPUSET_BG },
+		{ "camera-daemon",	CONFIG_CPUSET_CAMERA },
+		{ "display",		CONFIG_CPUSET_DISPLAY },
+		{ "foreground",		CONFIG_CPUSET_FG },
+		{ "restricted",		CONFIG_CPUSET_RESTRICTED },
+		{ "system-background",	CONFIG_CPUSET_SYSTEM_BG },
+		{ "top-app",		CONFIG_CPUSET_TOP_APP },	
+	};
+
+#endif
 
 /*
  * These ascii lists should be read in a single call, by using a user
