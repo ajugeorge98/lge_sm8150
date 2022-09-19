@@ -1,10 +1,10 @@
 
 qcom,LGE_BLT42_Tocad_4000mAh {
 	/* #3785476_LGE_BLT42mp_4000mAh_averaged_MasterSlave_Jan4th2019*/
-	qcom,max-voltage-uv = <4430000>;
-	qcom,fg-cc-cv-threshold-mv = <4430>;
-	qcom,fastchg-current-ma = <3300>;
-	qcom,batt-id-kohm = <91>;
+	qcom,max-voltage-uv = <4000000>;
+	qcom,fg-cc-cv-threshold-mv = <4000>;
+	qcom,fastchg-current-ma = <2300>;
+	qcom,batt-id-kohm = <64>;
 	qcom,battery-type = "LGE_BLT42_Tocad_4000mAh";
 	qcom,therm-coefficients = <0x230d 0xcf0 0x42 0xccbe 0x81ca>;
 	qcom,therm-center-offset = <0x5b>;
