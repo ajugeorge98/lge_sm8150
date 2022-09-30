@@ -1,17 +1,20 @@
-
 qcom,LGE_BLT42_Tocad_4000mAh {
 	/* #3785476_LGE_BLT42mp_4000mAh_averaged_MasterSlave_Jan4th2019*/
-	qcom,max-voltage-uv = <4000000>;
-	qcom,fg-cc-cv-threshold-mv = <4000>;
-	qcom,fastchg-current-ma = <2300>;
-	qcom,batt-id-kohm = <64>;
+	qcom,max-voltage-uv = <4400000>;
+	qcom,fg-cc-cv-threshold-mv = <4390>;
+	qcom,fastchg-current-ma = <1800>;
+	qcom,batt-id-kohm = <91>;
 	qcom,battery-type = "LGE_BLT42_Tocad_4000mAh";
+	/* Begin of fg accuracy compensation during charging */
+	qcom,cutoff-ki-coeff = <5900>;
+	qcom,cutoff-lt-ki-coeff = <9200>;
+	/* End of fg accuracy compensation during charging */
 	qcom,therm-coefficients = <0x230d 0xcf0 0x42 0xccbe 0x81ca>;
 	qcom,therm-center-offset = <0x5b>;
 	qcom,therm-pull-up = <100>;
-	qcom,rslow-normal-coeffs = <0xd7 0x0d 0xeb 0x0b>;
-	qcom,rslow-low-coeffs = <0xd8 0x14 0xfb 0x05>;
-	qcom,checksum = <0x31EB>;
+	qcom,rslow-normal-coeffs = <0x16 0x05 0xad 0x13>;
+	qcom,rslow-low-coeffs = <0x9a 0x14 0xbc 0x03>;
+	qcom,checksum = <0x7208>;
 	qcom,gui-version = "PM855GUI - 1.0.0.13";
 	qcom,fg-profile-data = [
 		 09 00 FF E3
