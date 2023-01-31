@@ -89,7 +89,7 @@ else
     mkdir out/outputs/${PHONE}
     find out/arch/arm64/boot/dts/qcom/ -name '*.dtb' -exec cat {} + >out/outputs/${PHONE}/dtb
     cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/dtbo.img
-    cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz
+    cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz-dtb
 
 fi
 
