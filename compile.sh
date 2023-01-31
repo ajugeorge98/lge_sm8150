@@ -60,18 +60,7 @@ KBUILD_COMPILER_STRING="clang-r428724" \
 Image.gz-dtb dtbo.img
 }
 
-miui_fix_dimens() {
-    sed -i 's/<70>/<695>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-36-02-0a-lcd-dsc-vid.dtsi
-    sed -i 's/<154>/<1546>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-36-02-0a-lcd-dsc-vid.dtsi
-    sed -i 's/<70>/<695>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-42-02-0b-lcd-dsc-vid.dtsi
-    sed -i 's/<154>/<1546>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-42-02-0b-lcd-dsc-vid.dtsi
-}
-restore_dimens() {
-    sed -i 's/<695>/<70>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-36-02-0a-lcd-dsc-vid.dtsi
-    sed -i 's/<1546>/<154>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-36-02-0a-lcd-dsc-vid.dtsi
-    sed -i 's/<695>/<70>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-42-02-0b-lcd-dsc-vid.dtsi
-    sed -i 's/<1546>/<154>/g' arch/arm64/boot/dts/qcom/dsi-panel-j20s-42-02-0b-lcd-dsc-vid.dtsi
-}
+
 
 # Make defconfig
 
@@ -101,17 +90,7 @@ else
     find out/arch/arm64/boot/dts/qcom/ -name '*.dtb' -exec cat {} + >out/outputs/${PHONE}/dtb
     cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/dtbo.img
     cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz
-    #MIUI dtbo
-    rm out/outputs/dtbo-miui.img
-    miui_fix_dimens
-    echo | Build_lld
-    if [ $? -ne 0 ]
-    then
-        rm out/outputs/dtbo-miui.img
-    else
-        cp out/arch/arm64/boot/dtbo.img out/outputs/dtbo-miui.img
-    fi
-    restore_dimens
+
 fi
 
 BUILD_END=$(date +"%s")
